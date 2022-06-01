@@ -1,0 +1,12 @@
+
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+note over browser:
+this request sends the form content
+and timestamp
+and content type is json
+end note
+server-->browser: 201 Status Code and JSON [{"message":"note created"}]
+note over server:
+server uses javascript to save the note
+end note
+
