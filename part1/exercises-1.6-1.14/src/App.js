@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import StatisticsLine from './components/StatisticsLine'
 
 const Statistics = (props) => {
   if (props.good === 0 && props.neutral === 0 && props.bad === 0) {
@@ -12,12 +13,12 @@ const Statistics = (props) => {
   return (
     <div>
       <h3>statistics</h3>
-      <p>good {props.good}</p>
-      <p>neutral {props.neutral}</p>
-      <p>bad {props.bad}</p>
-      <p>all {props.all}</p>
-      <p>average {props.average}</p>
-      <p>positive {props.positive}%</p>
+      <StatisticsLine text="good" value={props.good} />
+      <StatisticsLine text="neutral" value={props.neutral} />
+      <StatisticsLine text="bad" value={props.bad} />
+      <StatisticsLine text="all" value={props.all} />
+      <StatisticsLine text="average" value={props.average} />
+      <StatisticsLine text="positive" value={props.positive} />
     </div>
   )
 }
