@@ -19,6 +19,13 @@ const App = () => {
   
   const [votes, setVotes] = useState(initialVotes)
   const [selected, setSelected] = useState(0)
+  const [highestVoted, setHighest] = useState(selected)
+
+  const updateHighest = () =>  {
+    if (votes[selected] >= votes[highestVoted]) {
+      setHighest(selected)
+    }
+  }
 
   const updateVotes = () => {
     const newVotes = votes.map((vote, index) => {
@@ -27,6 +34,7 @@ const App = () => {
       }
       return vote;
     });
+    updateHighest();
     setVotes(newVotes);
   }
 
@@ -38,6 +46,8 @@ const App = () => {
         <button onClick={updateVotes}>Vote</button>
         <button onClick={() => setSelected(getRandomInt(anecdotes.length))}>Change Anecdote</button>
       </div>
+      {anecdotes[highestVoted]}
+      <p>has {votes[highestVoted]} votes</p>
     </div>
   )
 }
