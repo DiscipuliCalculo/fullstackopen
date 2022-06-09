@@ -13,6 +13,10 @@ const App = () => {
 
     const handleSubmit = (e) => {
       e.preventDefault();
+      const foundItem = persons.find(person => person.name === newName)
+      if (foundItem) {
+        return alert(`${newName} already exists`)
+      }
       setPersons(persons.concat({name: newName}))
     }
 
