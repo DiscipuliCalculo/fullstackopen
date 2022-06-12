@@ -5,7 +5,7 @@ import Listing from './components/Listing'
 import axios from 'axios'
 
 const App = () => {
-  const [persons, setPersons] = useState([])
+  const [persons, setPersons] = useState()
 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
@@ -13,9 +13,11 @@ const App = () => {
   const [filtedPersons, setFilteredPersons] = useState([...persons])
 
   const hook = () => {
+    console.log('effect')
     axios
       .get('http://localhost:3001/persons')
       .then(response => {
+        console.log('promise fulfilled')
         setPersons(response.data)
       })
   }
