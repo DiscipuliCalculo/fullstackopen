@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useState, useEffect } from "react"
-import CountryCard from "./components/CountryCard"
+import CountryInfo from "./components/CountryInfo"
 
 const App = () => {
 
@@ -39,18 +39,12 @@ const App = () => {
   const logCountries = () => {
     console.log(filteredCountries)
   }
-
   
   return (
     <div>
       <input type="text" onChange={handleChange}/>
       <button onClick={logCountries}>Log Countries</button>
-      {filteredCountries.length > 10 ? <p>Make your search more specific </p> :
-            <ul>
-            {filteredCountries.map(country => <li>{country.name.common}</li> )}
-          </ul>
-      }
-
+      <CountryInfo countries={filteredCountries}/>
     </div>
   )
 }
