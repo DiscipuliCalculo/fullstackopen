@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Filter from './components/Filter'
 import Form from './components/Form'
 import Listing from './components/Listing'
+import backendServices from './components/services'
 import axios from 'axios'
 
 const App = () => {
@@ -14,8 +15,8 @@ const App = () => {
 
   useEffect(() => {
     console.log('effect')
-    axios
-    .get('http://localhost:3001/persons')
+    backendServices
+    .getAll()
     .then(response => {
       console.log('promise fulfilled')
       setPersons(response.data)
@@ -62,8 +63,8 @@ const App = () => {
         number: newNumber
       }
 
-      axios
-      .post('http://localhost:3001/persons', newPerson)
+      backendServices
+      .create(newPerson)
       .then(response => {setPersons(persons.concat(response.data))})
     }
 
