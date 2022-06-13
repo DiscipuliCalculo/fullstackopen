@@ -5,24 +5,24 @@ import Listing from './components/Listing'
 import axios from 'axios'
 
 const App = () => {
-  const [persons, setPersons] = useState()
+  const [persons, setPersons] = useState([])
 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [nameFilter, setNameFilter] = useState('')
-  const [filtedPersons, setFilteredPersons] = useState([...persons])
+  const [filteredPersons, setFilteredPersons] = useState()
 
-  const hook = () => {
+  useEffect(() => {
     console.log('effect')
     axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('promise fulfilled')
-        setPersons(response.data)
-      })
-  }
-  
-  useEffect(hook, [])
+    .get('http://localhost:3001/persons')
+    .then(response => {
+      console.log('promise fulfilled')
+      setPersons(response.data)
+      setFilteredPersons(response.data)
+    })
+  }, [])
+
 
     /* The handleChange() function to set a new state for input */
     const handleNameChange = (e) => {
@@ -56,7 +56,15 @@ const App = () => {
       if (foundItem) {
         return alert(`${newName} already exists`)
       }
-      setPersons(persons.concat({name: newName, number: newNumber}))
+
+      const newPerson = {
+        name: newName,
+        number: newNumber
+      }
+
+      axios
+      .post('http://localhost:3001/persons', newPerson)
+      .then(response => {setPersons(persons.concat(response.data))})
     }
 
   return (
@@ -66,7 +74,8 @@ const App = () => {
       <Form newName={newName} newNumber={newNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} handleSubmit={handleSubmit} />
       <h2>Numbers</h2>
       <ul>
-      {filtedPersons.map(person => <Listing person={person} /> )}
+      {(filteredPersons !== undefined) ? filteredPersons.map(person => <Listing person={person} /> ) :
+      persons.map(person => <Listing person={person} /> ) }
       </ul>
     </div>
   )
