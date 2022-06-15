@@ -75,7 +75,7 @@ const App = () => {
       <Form newName={newName} newNumber={newNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} handleSubmit={handleSubmit} />
       <h2>Numbers</h2>
       <ul>
-      {(filteredPersons !== undefined) ? filteredPersons.map(person => <Listing person={person} /> ) :
+      {(filteredPersons !== undefined) ? filteredPersons.map((person, index) => <Listing person={person} /> ) :
       persons.map(person => <Listing person={person} /> ) }
       </ul>
     </div>
